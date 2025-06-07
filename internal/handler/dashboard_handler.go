@@ -9,119 +9,80 @@ import (
 )
 
 func GetDashboard(c *gin.Context) {
-	// 1. Data Hardcode untuk Statistik Cards
+	// 1. Data Hardcode untuk Statistik Cards (key: 'dashboardStats')
 	dashboardStats := gin.H{
 		"dailySales":        500000,
 		"monthlyRevenue":    50000000,
 		"totalTransactions": 25,
 	}
 
-	// 2. Data Hardcode untuk Popular Fruits (Sesuai UI)
-	popularFruits := []gin.H{
+	// 2. Data Hardcode untuk Produk Populer, meniru struktur Laravel
+	// Strukturnya adalah sebuah array yang berisi objek kategori,
+	// di mana setiap objek memiliki 'categoryName' dan 'products'.
+	popularProducts := []gin.H{
 		{
-			"id":           1,
-			"name":         "Apple",
-			"total":        "6 kg", // Digunakan oleh ProductListItem.tsx
-			"imageUrl":     "https://images.unsplash.com/photo-1560806887-1e4cd0b69665?w=50&h=50&fit=crop",
-			"inStock":      true, // Digunakan oleh ProductListItem.tsx
-			"sellingPrice": 100000,
-			// Field di bawah ini ada di 'types/index.ts' dan baik untuk disertakan
-			"stockQuantity": 6,
-			"status":        "Active",
-			"costPrice":     80000,
-			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
+			"categoryName": "Popular Fruits",
+			"products": []gin.H{
+				{
+					"id":            1,
+					"name":          "Apple",
+					"total":         "6 kg",
+					"imageUrl":      "https://images.unsplash.com/photo-1560806887-1e4cd0b69665?w=50&h=50&fit=crop",
+					"inStock":       true,
+					"sellingPrice":  100000,
+					"stockQuantity": 6,
+					"status":        "Active",
+					"costPrice":     80000,
+					"category":      gin.H{"id": 1, "name": "Popular Fruits"},
+				},
+				{
+					"id":            2,
+					"name":          "Watermelon",
+					"total":         "5 kg",
+					"imageUrl":      "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?w=50&h=50&fit=crop",
+					"inStock":       true,
+					"sellingPrice":  100000,
+					"stockQuantity": 5,
+					"status":        "Active",
+					"costPrice":     75000,
+					"category":      gin.H{"id": 1, "name": "Popular Fruits"},
+				},
+				// ... bisa tambah produk buah lain
+			},
 		},
 		{
-			"id":            2,
-			"name":          "Watermelon",
-			"total":         "5 kg",
-			"imageUrl":      "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?w=50&h=50&fit=crop",
-			"inStock":       true,
-			"sellingPrice":  100000,
-			"stockQuantity": 5,
-			"status":        "Active",
-			"costPrice":     75000,
-			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
-		},
-		{
-			"id":            3,
-			"name":          "Mango",
-			"total":         "2 kg",
-			"imageUrl":      "https://images.unsplash.com/photo-1591073113125-e46713c829ed?w=50&h=50&fit=crop",
-			"inStock":       false,
-			"sellingPrice":  100000,
-			"stockQuantity": 0,
-			"status":        "Inactive",
-			"costPrice":     85000,
-			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
-		},
-		{
-			"id":            4,
-			"name":          "Pear",
-			"total":         "1 kg",
-			"imageUrl":      "https://images.unsplash.com/photo-1601412436009-d964402b822d?w=50&h=50&fit=crop",
-			"inStock":       true,
-			"sellingPrice":  100000,
-			"stockQuantity": 1,
-			"status":        "Active",
-			"costPrice":     90000,
-			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
-		},
-	}
-
-	// 3. Data Hardcode untuk Popular Foods (Sesuai UI)
-	popularFoods := []gin.H{
-		{
-			"id":            5,
-			"name":          "Beras Porang",
-			"total":         "8 kg",
-			"imageUrl":      "https://images.unsplash.com/photo-1586201375765-c1265b014357?w=50&h=50&fit=crop",
-			"inStock":       true,
-			"sellingPrice":  100000,
-			"stockQuantity": 8,
-			"status":        "Active",
-			"costPrice":     70000,
-			"category":      gin.H{"id": 2, "name": "Popular Foods"},
-		},
-		{
-			"id":            6,
-			"name":          "Beras Shirataki",
-			"total":         "6 kg",
-			"imageUrl":      "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a7?w=50&h=50&fit=crop",
-			"inStock":       true,
-			"sellingPrice":  100000,
-			"stockQuantity": 6,
-			"status":        "Active",
-			"costPrice":     95000,
-			"category":      gin.H{"id": 2, "name": "Popular Foods"},
-		},
-		{
-			"id":            7,
-			"name":          "Beras Merah",
-			"total":         "2 kg",
-			"imageUrl":      "https://images.unsplash.com/photo-1603575448888-064405553a1a?w=50&h=50&fit=crop",
-			"inStock":       false,
-			"sellingPrice":  100000,
-			"stockQuantity": 0,
-			"status":        "Inactive",
-			"costPrice":     92000,
-			"category":      gin.H{"id": 2, "name": "Popular Foods"},
-		},
-		{
-			"id":            8,
-			"name":          "Beras Kurogame",
-			"total":         "6 kg",
-			"imageUrl":      "https://images.unsplash.com/photo-1516684732162-7919656a1643?w=50&h=50&fit=crop",
-			"inStock":       true,
-			"sellingPrice":  100000,
-			"stockQuantity": 6,
-			"status":        "Active",
-			"costPrice":     93000,
-			"category":      gin.H{"id": 2, "name": "Popular Foods"},
+			"categoryName": "Popular Foods",
+			"products": []gin.H{
+				{
+					"id":            5,
+					"name":          "Beras Porang",
+					"total":         "8 kg",
+					"imageUrl":      "https://images.unsplash.com/photo-1586201375765-c1265b014357?w=50&h=50&fit=crop",
+					"inStock":       true,
+					"sellingPrice":  100000,
+					"stockQuantity": 8,
+					"status":        "Active",
+					"costPrice":     70000,
+					"category":      gin.H{"id": 2, "name": "Popular Foods"},
+				},
+				{
+					"id":            6,
+					"name":          "Beras Shirataki",
+					"total":         "6 kg",
+					"imageUrl":      "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a7?w=50&h=50&fit=crop",
+					"inStock":       true,
+					"sellingPrice":  100000,
+					"stockQuantity": 6,
+					"status":        "Active",
+					"costPrice":     95000,
+					"category":      gin.H{"id": 2, "name": "Popular Foods"},
+				},
+				// ... bisa tambah produk makanan lain
+			},
 		},
 	}
 
-	// 4. Data Hardcode untuk Overview Chart (Sesuai UI)
+	// 3. Data Hardcode untuk Overview Chart (key: 'overviewData')
 	overviewData := []gin.H{
 		{"name": "JAN", "sales": 4000, "revenue": 2400},
 		{"name": "FEB", "sales": 3000, "revenue": 1398},
@@ -137,11 +98,10 @@ func GetDashboard(c *gin.Context) {
 		{"name": "DEC", "sales": 4300, "revenue": 5200},
 	}
 
-	// 5. Kirim respons JSON dengan struktur yang DIHARAPKAN oleh frontend
+	// 4. Kirim respons JSON dengan struktur yang SAMA SEPERTI LARAVEL
 	c.JSON(http.StatusOK, gin.H{
-		"stats":         dashboardStats,
-		"popularFruits": popularFruits,
-		"popularFoods":  popularFoods,
-		"overview":      overviewData,
+		"dashboardStats":  dashboardStats,
+		"popularProducts": popularProducts,
+		"overviewData":    overviewData,
 	})
 }

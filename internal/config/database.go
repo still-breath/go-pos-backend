@@ -18,10 +18,10 @@ func ConnectDB() {
 	// Mengambil variabel lingkungan menggunakan fungsi GetEnv yang ada di config.go
 	// Jika variabel tidak ada, akan digunakan nilai fallback (parameter kedua)
 	dbUser := GetEnv("DB_USER", "postgres")
-	dbPassword := GetEnv("DB_PASSWORD", "password")
+	dbPassword := GetEnv("DB_PASSWORD", "postgres")
 	dbHost := GetEnv("DB_HOST", "127.0.0.1")
 	dbPort := GetEnv("DB_PORT", "5432")
-	dbName := GetEnv("DB_NAME", "pos_sys_db")
+	dbName := GetEnv("DB_NAME", "pos_laravel_db")
 
 	// Membuat DSN (Data Source Name) untuk koneksi PostgreSQL
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",

@@ -16,87 +16,112 @@ func GetDashboard(c *gin.Context) {
 		"totalTransactions": 25,
 	}
 
-	// 2. Data Hardcode untuk Popular Fruits
+	// 2. Data Hardcode untuk Popular Fruits (Sesuai UI)
 	popularFruits := []gin.H{
 		{
-			"id":            1,
-			"name":          "Apple",
-			"imageUrl":      "https://via.placeholder.com/150/FFC0CB/000000?Text=Apple",
+			"id":           1,
+			"name":         "Apple",
+			"total":        "6 kg", // Digunakan oleh ProductListItem.tsx
+			"imageUrl":     "https://images.unsplash.com/photo-1560806887-1e4cd0b69665?w=50&h=50&fit=crop",
+			"inStock":      true, // Digunakan oleh ProductListItem.tsx
+			"sellingPrice": 100000,
+			// Field di bawah ini ada di 'types/index.ts' dan baik untuk disertakan
 			"stockQuantity": 6,
 			"status":        "Active",
-			"sellingPrice":  100000,
 			"costPrice":     80000,
 			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
-			"total":         "6 kg", // Menambahkan field 'total' sesuai UI awal
-			"inStock":       true,   // Menambahkan field 'inStock' sesuai UI awal
 		},
 		{
 			"id":            2,
 			"name":          "Watermelon",
-			"imageUrl":      "https://via.placeholder.com/150/90EE90/000000?Text=Watermelon",
+			"total":         "5 kg",
+			"imageUrl":      "https://images.unsplash.com/photo-1589984662646-e7b2e4962f18?w=50&h=50&fit=crop",
+			"inStock":       true,
+			"sellingPrice":  100000,
 			"stockQuantity": 5,
 			"status":        "Active",
-			"sellingPrice":  100000,
 			"costPrice":     75000,
 			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
-			"total":         "5 kg",
-			"inStock":       true,
 		},
 		{
 			"id":            3,
 			"name":          "Mango",
-			"imageUrl":      "https://via.placeholder.com/150/FFD700/000000?Text=Mango",
+			"total":         "2 kg",
+			"imageUrl":      "https://images.unsplash.com/photo-1591073113125-e46713c829ed?w=50&h=50&fit=crop",
+			"inStock":       false,
+			"sellingPrice":  100000,
 			"stockQuantity": 0,
 			"status":        "Inactive",
-			"sellingPrice":  100000,
 			"costPrice":     85000,
 			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
-			"total":         "2 kg",
-			"inStock":       false,
 		},
 		{
 			"id":            4,
 			"name":          "Pear",
-			"imageUrl":      "https://via.placeholder.com/150/B0E0E6/000000?Text=Pear",
+			"total":         "1 kg",
+			"imageUrl":      "https://images.unsplash.com/photo-1601412436009-d964402b822d?w=50&h=50&fit=crop",
+			"inStock":       true,
+			"sellingPrice":  100000,
 			"stockQuantity": 1,
 			"status":        "Active",
-			"sellingPrice":  100000,
 			"costPrice":     90000,
 			"category":      gin.H{"id": 1, "name": "Popular Fruits"},
-			"total":         "1 kg",
-			"inStock":       true,
 		},
 	}
 
-	// 3. Data Hardcode untuk Popular Foods
+	// 3. Data Hardcode untuk Popular Foods (Sesuai UI)
 	popularFoods := []gin.H{
 		{
 			"id":            5,
 			"name":          "Beras Porang",
-			"imageUrl":      "https://via.placeholder.com/150/D2B48C/000000?Text=Beras",
+			"total":         "8 kg",
+			"imageUrl":      "https://images.unsplash.com/photo-1586201375765-c1265b014357?w=50&h=50&fit=crop",
+			"inStock":       true,
+			"sellingPrice":  100000,
 			"stockQuantity": 8,
 			"status":        "Active",
-			"sellingPrice":  100000,
 			"costPrice":     70000,
 			"category":      gin.H{"id": 2, "name": "Popular Foods"},
-			"total":         "8 kg",
-			"inStock":       true,
 		},
 		{
 			"id":            6,
 			"name":          "Beras Shirataki",
-			"imageUrl":      "https://via.placeholder.com/150/E6E6FA/000000?Text=Beras",
+			"total":         "6 kg",
+			"imageUrl":      "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a7?w=50&h=50&fit=crop",
+			"inStock":       true,
+			"sellingPrice":  100000,
 			"stockQuantity": 6,
 			"status":        "Active",
-			"sellingPrice":  100000,
 			"costPrice":     95000,
 			"category":      gin.H{"id": 2, "name": "Popular Foods"},
+		},
+		{
+			"id":            7,
+			"name":          "Beras Merah",
+			"total":         "2 kg",
+			"imageUrl":      "https://images.unsplash.com/photo-1603575448888-064405553a1a?w=50&h=50&fit=crop",
+			"inStock":       false,
+			"sellingPrice":  100000,
+			"stockQuantity": 0,
+			"status":        "Inactive",
+			"costPrice":     92000,
+			"category":      gin.H{"id": 2, "name": "Popular Foods"},
+		},
+		{
+			"id":            8,
+			"name":          "Beras Kurogame",
 			"total":         "6 kg",
+			"imageUrl":      "https://images.unsplash.com/photo-1516684732162-7919656a1643?w=50&h=50&fit=crop",
 			"inStock":       true,
+			"sellingPrice":  100000,
+			"stockQuantity": 6,
+			"status":        "Active",
+			"costPrice":     93000,
+			"category":      gin.H{"id": 2, "name": "Popular Foods"},
 		},
 	}
 
-	// 4. Data Hardcode untuk Overview Chart
+	// 4. Data Hardcode untuk Overview Chart (Sesuai UI)
 	overviewData := []gin.H{
 		{"name": "JAN", "sales": 4000, "revenue": 2400},
 		{"name": "FEB", "sales": 3000, "revenue": 1398},

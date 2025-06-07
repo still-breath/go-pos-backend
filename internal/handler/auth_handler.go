@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/still-breath/go-pos-backend/internal/config" // Ganti dengan path modul Anda
-	"github.com/still-breath/go-pos-backend/internal/model"  // Ganti dengan path modul Anda
+	"github.com/still-breath/go-pos-backend.git/internal/config" // Ganti dengan path modul Anda
+	"github.com/still-breath/go-pos-backend.git/internal/model"  // Ganti dengan path modul Anda
 	"golang.org/x/crypto/bcrypt"
 )
 

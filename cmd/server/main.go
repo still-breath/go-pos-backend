@@ -57,7 +57,7 @@ func main() {
 		{
 			protected.GET("/user", handler.GetUser)
 			protected.POST("/logout", handler.Logout)
-			protected.GET("/owner/dashboard", handler.GetDashboard)
+			protected.GET("/dashboard", handler.GetDashboard)
 			// Tambahkan rute lain yang memerlukan login di sini
 		}
 	}
